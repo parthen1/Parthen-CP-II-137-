@@ -1,0 +1,478 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Faculty Attendance Dashboard | GeoAttend</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#135bec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              display: ["Inter"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 20;
+      }
+      .map-bg {
+        background-color: #e5e7eb;
+        background-image:
+          linear-gradient(#d1d5db 1px, transparent 1px),
+          linear-gradient(90deg, #d1d5db 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-[#0d121b] dark:text-white transition-colors duration-200"
+  >
+    <div class="relative flex min-h-screen flex-col">
+      <header
+        class="sticky top-0 z-50 w-full border-b border-solid border-[#e7ebf3] dark:border-gray-800 bg-white dark:bg-background-dark px-6 py-3"
+      >
+        <div class="mx-auto flex max-w-7xl items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl font-bold !fill-1"
+                >location_on</span
+              >
+            </div>
+            <h2 class="text-xl font-black leading-tight tracking-tight">
+              GeoAttend
+            </h2>
+          </div>
+          <div class="flex items-center gap-8">
+            <nav class="hidden md:flex items-center gap-8">
+              <a
+                class="text-primary text-sm font-semibold leading-normal border-b-2 border-primary pb-1"
+                href="#"
+                >Dashboard</a
+              >
+              <a
+                class="text-[#4c669a] hover:text-primary text-sm font-medium leading-normal transition-colors"
+                href="timetable.html"
+                >Time Table</a
+              >
+              <a
+                class="text-[#4c669a] hover:text-primary text-sm font-medium leading-normal transition-colors"
+                href="#"
+                >Notifications</a
+              >
+            </nav>
+            <div class="flex items-center gap-4">
+              <!-- <button
+                class="flex size-10 items-center justify-center rounded-lg bg-[#e7ebf3] dark:bg-gray-800 text-[#0d121b] dark:text-white transition-all hover:bg-gray-200"
+              >
+                <span class="material-symbols-outlined">settings</span>
+              </button> -->
+              <a
+                href="settings1.html"
+                class="flex size-10 items-center justify-center rounded-lg bg-[#e7ebf3] dark:bg-gray-800 text-[#0d121b] dark:text-white transition-all hover:bg-gray-200"
+              >
+                <span class="material-symbols-outlined">settings</span>
+              </a>
+
+              <div
+                class="h-10 w-10 overflow-hidden rounded-full border-2 border-primary bg-center bg-no-repeat bg-cover"
+                style="
+                  background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCTQD-vfey2midWmM_DnVozhFKNWxXSM6JTy7tw-qZNpRImDk4OwZAzK6VGAPXxlcPd5TTANzB6kdlNPUf0tqq17YFHcWRjGlUf7YADLssTa_AS_Pl2jU1fM4Bdn6PJR-q7tMPaqq1wOKVJZKxYv4LnyK9fpA7AiOCjoduktd_DQzypL_ecYVbDT6dujSnAd4X-ejdK1uVWqUeOGU4LDuR6sB_BzjQs7fwikB_34HxIfLooW64RBrXPzFay2ubrmsTto_1neEH-zhn2&quot;);
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow p-6 lg:p-10">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-8">
+            <h1
+              class="text-4xl font-black tracking-tight text-[#0d121b] dark:text-white"
+            >
+              Faculty Dashboard
+            </h1>
+            <p class="text-lg text-[#4c669a] dark:text-gray-400">
+              Welcome back, Professor Parthen
+            </p>
+          </div>
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="lg:col-span-2 space-y-6">
+              <div
+                class="rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-[#e7ebf3] dark:border-gray-700 overflow-hidden"
+              >
+                <div class="flex flex-col md:flex-row h-full">
+                  <div
+                    class="w-full md:w-1/3 min-h-[200px] bg-slate-100 dark:bg-slate-900 relative overflow-hidden map-bg"
+                  >
+                    <div class="absolute inset-0 opacity-40">
+                      <div
+                        class="absolute top-10 left-10 w-24 h-32 bg-slate-300 dark:bg-slate-700 rounded-sm rotate-12"
+                      ></div>
+                      <div
+                        class="absolute top-40 right-4 w-20 h-20 bg-slate-300 dark:bg-slate-700 rounded-full"
+                      ></div>
+                      <div
+                        class="absolute bottom-10 left-20 w-32 h-16 bg-slate-300 dark:bg-slate-700 rounded-sm -rotate-6"
+                      ></div>
+                      <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-4 bg-slate-200 dark:bg-slate-800 rotate-45"
+                      ></div>
+                    </div>
+                    <div
+                      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+                    >
+                      <div
+                        class="relative flex h-12 w-12 items-center justify-center"
+                      >
+                        <span
+                          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-40"
+                        ></span>
+                        <div
+                          class="relative flex h-6 w-6 items-center justify-center rounded-full bg-primary shadow-lg border-2 border-white"
+                        >
+                          <span
+                            class="material-symbols-outlined text-[14px] text-white !fill-1"
+                            >location_on</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white dark:bg-gray-800 px-3 py-1 shadow-md z-20"
+                    >
+                      <span class="relative flex h-2 w-2">
+                        <span
+                          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"
+                        ></span>
+                        <span
+                          class="relative inline-flex rounded-full h-2 w-2 bg-red-500"
+                        ></span>
+                      </span>
+                      <span
+                        class="text-[10px] font-bold uppercase tracking-wider text-red-500"
+                        >Live</span
+                      >
+                    </div>
+                  </div>
+                  <div class="flex-1 p-6 flex flex-col justify-between">
+                    <div>
+                      <p
+                        class="text-xs font-bold uppercase tracking-widest text-primary mb-1"
+                      >
+                        Current Lecture
+                      </p>
+                      <h2
+                        class="text-2xl font-bold text-[#0d121b] dark:text-white"
+                      >
+                        Cloud Computing (CC) - 6CE-D
+                      </h2>
+                      <p
+                        class="text-[#4c669a] dark:text-gray-400 mt-1 flex items-center gap-1"
+                      >
+                        <span class="material-symbols-outlined text-sm"
+                          >location_on</span
+                        >
+                        Room 209 - New Building
+                      </p>
+                    </div>
+                    <div class="mt-6 flex flex-col gap-4">
+                      <div
+                        class="w-full bg-[#f0f2f5] dark:bg-gray-700 h-3 rounded-full overflow-hidden"
+                      >
+                        <div class="bg-primary h-full" style="width: 75%"></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-baseline gap-1">
+                          <span class="text-3xl font-black text-primary"
+                            >78</span
+                          >
+                          <span
+                            class="text-[#4c669a] dark:text-gray-400 text-sm font-medium"
+                            >/ 90 students present</span
+                          >
+                        </div>
+                        <button
+                          class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg font-bold text-sm transition-all shadow-lg shadow-primary/20"
+                        >
+                          Manage Class
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <h3
+                    class="text-xl font-bold text-[#0d121b] dark:text-white px-1 flex items-center gap-2"
+                  >
+                    <span class="material-symbols-outlined"
+                      >wifi_tethering</span
+                    >
+                    Recent Check-ins
+                  </h3>
+                  <button
+                    class="text-primary text-sm font-semibold hover:underline"
+                  >
+                    View All
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                >
+                  <div
+                    class="flex items-center gap-4 rounded-xl border border-[#cfd7e7] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-transform hover:scale-[1.02]"
+                  >
+                    <div
+                      class="size-10 shrink-0 rounded-full bg-cover bg-center border border-primary/20"
+                      style="
+                        background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAT-wSzzE2dBWbRSsJBRexaOHS1h3ShyJpCgOkIzvt0G7MP5J6Yaggi8PyWBSEy6Hok1FmpqjFBgwhPoWP6wvh8yXcfg1TQ10sE_G8e6yu4KgR-N6kJptmu5IiYelHWiqt5Liwzk6KxgeagSodSFaZE2UYspgnQYa76dUhdE8k-ITy43nn9Ti9Ln9r5Pm1M58-QjizvfcZFAH30rNMVpJVdc_-RYISVq4JvToVIqT797Ldti2irJzpWNHsQV6F0AO12AFIFzqtNPw25&quot;);
+                      "
+                    ></div>
+                    <div class="flex flex-col">
+                      <h4
+                        class="text-sm font-bold text-[#0d121b] dark:text-white"
+                      >
+                        Tirth Patel
+                      </h4>
+                      <p class="text-xs text-primary font-medium">Just now</p>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-4 rounded-xl border border-[#cfd7e7] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-transform hover:scale-[1.02]"
+                  >
+                    <div
+                      class="size-10 shrink-0 rounded-full bg-cover bg-center border border-primary/20"
+                      style="
+                        background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAOac53XM3QaoA9tcoivjdQM0OzLXZ_JpTx1f8n92IEBLgI5JbqnvfJ65e7SdqkSe43CvZkMCsl0o5KZ8WR5t3nDkPDbsPknJQ2yTfkyGkNBs73H8Zanuc_8kzpw16wViJHUhscZvfvuWp4EFDfv__atcaC-YsXtT-n9HaYe7D2KBOaq_oDYGy_4ACxLHXategwOJi4beB90hUlk1HnK2yEzHJW8l_qsNhfX6xyNin1oPEVQYzmpVJLe-Z7Pev0RS0tda5PNUmLZ8jO&quot;);
+                      "
+                    ></div>
+                    <div class="flex flex-col">
+                      <h4
+                        class="text-sm font-bold text-[#0d121b] dark:text-white"
+                      >
+                        Om Patel
+                      </h4>
+                      <p class="text-xs text-[#4c669a] dark:text-gray-400">
+                        10:04 AM
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-4 rounded-xl border border-[#cfd7e7] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-transform hover:scale-[1.02]"
+                  >
+                    <div
+                      class="size-10 shrink-0 rounded-full bg-cover bg-center border border-primary/20"
+                      style="
+                        background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDz68GXJmPueG_MRenSK6BD5W3VjJloSiCJ13dS0Lve0bv8Fh5-2BVIo3wLHW3Y_APn_EYEmj3oS4sX3JYDfBpPU5EiAK-kxWsIKE3eSI_xdo92_av-3-OL7WVvFHdDzov7704PBLAUXDkBK4TNb9MglSvunOqcWcaPoAHNwyP7W9qzNiStGJKY2EXc4nyGRzaXvJTDL_gzY9bcxJnHV3TQsZ6jhpCOFFHJn3a5QIQuNaAErk9G4bK0Jxdfksudy0G46sESf9MSiXD3&quot;);
+                      "
+                    ></div>
+                    <div class="flex flex-col">
+                      <h4
+                        class="text-sm font-bold text-[#0d121b] dark:text-white"
+                      >
+                        Kavy Modi
+                      </h4>
+                      <p class="text-xs text-[#4c669a] dark:text-gray-400">
+                        10:02 AM
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="rounded-xl bg-primary text-white p-6 shadow-xl shadow-primary/30"
+              >
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="text-lg font-bold opacity-90">
+                      Daily Analytics Overview
+                    </h3>
+                    <p class="text-4xl font-black mt-2">88.5%</p>
+                    <p class="text-sm opacity-80 mt-1">
+                      Average Attendance Today
+                    </p>
+                  </div>
+                  <div
+                    class="flex items-center justify-center p-4 bg-white/20 rounded-full"
+                  >
+                    <span class="material-symbols-outlined text-4xl"
+                      >trending_up</span
+                    >
+                  </div>
+                </div>
+                <div class="mt-6 flex gap-2">
+                  <div
+                    class="flex-1 h-2 bg-white/20 rounded-full overflow-hidden"
+                  >
+                    <div class="bg-white h-full" style="width: 88.5%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div
+                class="rounded-xl bg-white dark:bg-gray-800 border border-[#e7ebf3] dark:border-gray-700 p-5 shadow-sm"
+              >
+                <p
+                  class="text-xs font-bold uppercase tracking-widest text-[#4c669a] dark:text-gray-400 mb-4"
+                >
+                  Upcoming Next
+                </p>
+                <div class="flex items-center gap-4">
+                  <div
+                    class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary"
+                  >
+                    <span class="material-symbols-outlined text-3xl"
+                      >psychology</span
+                    >
+                  </div>
+                  <div>
+                    <h3
+                      class="font-bold text-lg text-[#0d121b] dark:text-white"
+                    >
+                      CC Lab - 6CE-C1
+                    </h3>
+                    <p class="text-sm text-[#4c669a] dark:text-gray-400">
+                      01:20 PM - 02:50 PM
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="mt-5 pt-4 border-t border-dashed border-[#e7ebf3] dark:border-gray-700 flex items-center justify-between"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm text-[#4c669a] dark:text-gray-400"
+                  >
+                    <span class="material-symbols-outlined text-sm"
+                      >meeting_room</span
+                    >
+                    <span>Room 1NB104-A</span>
+                  </div>
+                  <span
+                    class="text-xs font-bold px-2 py-1 bg-background-light dark:bg-gray-700 rounded text-primary"
+                    >Pre-Session</span
+                  >
+                </div>
+              </div>
+              <div
+                class="rounded-xl bg-white dark:bg-gray-800 border border-[#e7ebf3] dark:border-gray-700 shadow-sm"
+              >
+                <div class="p-5 border-b border-[#e7ebf3] dark:border-gray-700">
+                  <h3 class="font-bold text-lg text-[#0d121b] dark:text-white">
+                    Today's Schedule
+                  </h3>
+                  <p class="text-xs text-[#4c669a] dark:text-gray-400">
+                    Wednesday, Oct 25
+                  </p>
+                </div>
+                <div class="p-2">
+                  <div class="flex items-center gap-4 p-4 opacity-50">
+                    <div class="text-center w-12 flex flex-col shrink-0">
+                      <span class="text-xs font-bold">09:00</span>
+                      <span class="text-[10px] text-[#4c669a]">AM</span>
+                    </div>
+                    <div class="flex-grow">
+                      <h4 class="text-sm font-bold">Python - 4CE-A</h4>
+                      <p class="text-xs text-[#4c669a]">1NB108</p>
+                    </div>
+                    <span class="material-symbols-outlined text-green-500"
+                      >check_circle</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-lg bg-primary/5 border border-primary/20 relative overflow-hidden"
+                  >
+                    <div
+                      class="absolute left-0 top-0 bottom-0 w-1 bg-primary"
+                    ></div>
+                    <div class="text-center w-12 flex flex-col shrink-0">
+                      <span class="text-xs font-bold text-primary">10:30</span>
+                      <span class="text-[10px] text-primary">AM</span>
+                    </div>
+                    <div class="flex-grow">
+                      <h4 class="text-sm font-bold text-primary">
+                        Cloud Computing - 6CE-D
+                      </h4>
+                      <p class="text-xs text-primary/80">
+                        Room 209 (In Progress)
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-4 p-4">
+                    <div class="text-center w-12 flex flex-col shrink-0">
+                      <span class="text-xs font-bold">01:20</span>
+                      <span class="text-[10px] text-[#4c669a]">PM</span>
+                    </div>
+                    <div class="flex-grow">
+                      <h4 class="text-sm font-bold">CC Lab - 6CE-C1</h4>
+                      <p class="text-xs text-[#4c669a]">Room 1NB104-A</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-4 p-4">
+                    <div class="text-center w-12 flex flex-col shrink-0">
+                      <span class="text-xs font-bold">03:00</span>
+                      <span class="text-[10px] text-[#4c669a]">PM</span>
+                    </div>
+                    <div class="flex-grow">
+                      <h4 class="text-sm font-bold">
+                        Faculty Meeting - All Batches
+                      </h4>
+                      <p class="text-xs text-[#4c669a]">Conference Hall</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 border-t border-[#e7ebf3] dark:border-gray-700">
+                  <button
+                    class="w-full py-2 text-sm font-bold text-[#4c669a] hover:text-primary transition-colors flex items-center justify-center gap-2"
+                  >
+                    <span class="material-symbols-outlined text-lg"
+                      >calendar_month</span
+                    >
+                    Full Schedule
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer
+        class="mt-auto px-6 py-8 border-t border-[#e7ebf3] dark:border-gray-800 text-center"
+      >
+        <p class="text-sm text-[#4c669a] dark:text-gray-500">
+          © 2026 GeoAttend Developed by Parthen04. All rights reserved.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

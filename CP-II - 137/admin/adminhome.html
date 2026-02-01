@@ -1,0 +1,613 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Central Dashboard - GeoAttendance</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/tailwindcss">
+      @layer base {
+        #sidebar-toggle:checked ~ aside {
+          width: 5rem;
+        }
+        #sidebar-toggle:checked ~ aside .logo-text,
+        #sidebar-toggle:checked ~ aside .nav-text,
+        #sidebar-toggle:checked ~ aside .profile-info {
+          display: none;
+        }
+        #sidebar-toggle:checked ~ aside .nav-item {
+          justify-content: center;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        #sidebar-toggle:checked ~ main {
+          margin-left: 5rem;
+        }
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#135bec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "navy-sidebar": "#0f172a",
+            },
+            fontFamily: {
+              display: ["Inter"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen relative"
+  >
+    <input class="hidden" id="sidebar-toggle" type="checkbox" />
+    <aside
+      class="fixed inset-y-0 left-0 w-64 bg-navy-sidebar text-white transition-all duration-300 z-50"
+    >
+      <div class="flex flex-col h-full overflow-hidden">
+        <div class="flex items-center gap-3 px-6 py-8">
+          <label
+            class="cursor-pointer hover:bg-white/10 p-1 rounded transition-colors"
+            for="sidebar-toggle"
+          >
+            <span class="material-icons text-white">menu</span>
+          </label>
+          <div class="flex items-center gap-3 logo-text">
+            <div
+              class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center flex-shrink-0"
+            >
+              <span class="material-icons text-white text-xl">location_on</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight">GeoAttend</span>
+          </div>
+        </div>
+        <nav class="flex-1 px-4 space-y-1">
+          <a
+            class="nav-item flex items-center gap-3 px-3 py-3 rounded-lg bg-primary text-white transition-colors"
+            href="#"
+          >
+            <span class="material-icons text-xl">dashboard</span>
+            <span class="font-medium text-sm nav-text">Dashboard</span>
+          </a>
+          <a
+            class="nav-item flex items-center gap-3 px-3 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            href="#"
+          >
+            <span class="material-icons text-xl">people</span>
+            <span class="font-medium text-sm nav-text">User Management</span>
+          </a>
+          <a
+            class="nav-item flex items-center gap-3 px-3 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            href="#"
+          >
+            <span class="material-icons text-xl">question_answer</span>
+            <span class="font-medium text-sm nav-text">Queries</span>
+          </a>
+          <a
+            class="nav-item flex items-center gap-3 px-3 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            href="#"
+          >
+            <span class="material-icons text-xl">map</span>
+            <span class="font-medium text-sm nav-text">Live Tracking</span>
+          </a>
+          <a
+            class="nav-item flex items-center gap-3 px-3 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            href="#"
+          >
+            <span class="material-icons text-xl">bar_chart</span>
+            <span class="font-medium text-sm nav-text">Reports</span>
+          </a>
+          <a
+            class="nav-item flex items-center gap-3 px-3 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            href="#"
+          >
+            <span class="material-icons text-xl">notifications</span>
+            <span class="font-medium text-sm nav-text">Notifications</span>
+          </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+          <div class="flex items-center gap-3 px-3 py-2">
+            <img
+              alt="Admin Profile"
+              class="w-8 h-8 rounded-full border-2 border-slate-700 flex-shrink-0"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9AVzKSd4h7iiZVHyBc9xMCNdRoLS_GW2k7T08pTVPmikqQtyCaAGP9dmKjX6DjWzpF3YB9qWWNQRHnuvPlQMu-VjXImpRwrmGcZprU8jmNDz7NYq-6-UDhuPJpg-rC30vfMpnQk8BWF9xPUtJUzkoG12bpqWp3IpHusJuGn8hoci2g6ZvVIMEdgvNUcphMpgvkWoEnSL6flDcgo_HB9WhI6yelye65-P5cHNpQaDaEx60x-QeinbfvYBx_rfYesV73V68PWusT35I"
+            />
+            <div class="flex flex-col overflow-hidden profile-info">
+              <span class="text-sm font-semibold truncate">Parthen Desai</span>
+              <span class="text-xs text-slate-500 truncate">System Admin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <main class="ml-64 p-8 transition-all duration-300">
+      <header class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-900 dark:text-white">
+            Admin Central Dashboard
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Manage institutional access and monitor user activities.
+          </p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="relative">
+            <span
+              class="material-icons absolute left-3 top-2.5 text-slate-400 text-lg"
+              >search</span
+            >
+            <input
+              class="pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary w-64 outline-none"
+              placeholder="Quick user lookup..."
+              type="text"
+            />
+          </div>
+          <a
+            href="settings2.html"
+            class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative"
+          >
+            <span class="material-icons">settings</span>
+          </a>
+        </div>
+      </header>
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between"
+        >
+          <div>
+            <p
+              class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1"
+            >
+              Total Users
+            </p>
+            <h3
+              class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              1,284
+            </h3>
+            <div
+              class="flex items-center gap-1 mt-2 text-xs font-medium text-emerald-600"
+            >
+              <span class="material-icons text-sm">trending_up</span>
+              <span>12% from last month</span>
+            </div>
+          </div>
+          <div
+            class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center"
+          >
+            <span class="material-icons text-primary">groups</span>
+          </div>
+        </div>
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between"
+        >
+          <div>
+            <p
+              class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1"
+            >
+              Active Classes
+            </p>
+            <h3
+              class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              42
+            </h3>
+            <div
+              class="flex items-center gap-1 mt-2 text-xs font-medium text-primary"
+            >
+              <span class="material-icons text-sm">sensors</span>
+              <span>Currently live</span>
+            </div>
+          </div>
+          <div
+            class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center"
+          >
+            <span class="material-icons text-emerald-600 dark:text-emerald-400"
+              >school</span
+            >
+          </div>
+        </div>
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between"
+        >
+          <div>
+            <p
+              class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1"
+            >
+              Resolved Queries
+            </p>
+            <h3
+              class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              95%
+            </h3>
+            <div
+              class="flex items-center gap-1 mt-2 text-xs font-medium text-slate-500"
+            >
+              <span class="material-icons text-sm">check_circle</span>
+              <span>Goal: 100% resolution</span>
+            </div>
+          </div>
+          <div
+            class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center"
+          >
+            <span class="material-icons text-amber-600 dark:text-amber-400"
+              >assignment_turned_in</span
+            >
+          </div>
+        </div>
+      </section>
+      <div class="grid grid-cols-12 gap-6">
+        <section class="col-span-12 lg:col-span-5 xl:col-span-4">
+          <div
+            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden"
+          >
+            <div class="p-6 border-b border-slate-100 dark:border-slate-700">
+              <h2 class="text-lg font-bold text-slate-900 dark:text-white">
+                User Creation
+              </h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Generate new login credentials for system users.
+              </p>
+            </div>
+            <form class="p-6 space-y-4">
+              <div class="space-y-1.5">
+                <label
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                  >Full Name</label
+                >
+                <input
+                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none transition-all"
+                  placeholder="e.g. Rahul"
+                  type="text"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                  >University ID</label
+                >
+                <input
+                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none transition-all"
+                  placeholder="e.g. 23012011013"
+                  type="text"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                  >Role</label
+                >
+                <select
+                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none appearance-none cursor-pointer"
+                >
+                  <option>Select Role</option>
+                  <option>Student</option>
+                  <option>Faculty</option>
+                </select>
+              </div>
+              <div class="space-y-1.5">
+                <label
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                  >Email Address</label
+                >
+                <input
+                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none transition-all"
+                  placeholder="abc@gnu.ac.in"
+                  type="email"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                  >Password</label
+                >
+                <input
+                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary outline-none transition-all"
+                  placeholder="••••••••"
+                  type="password"
+                />
+              </div>
+              <button
+                class="w-full mt-2 py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-md shadow-primary/20 transition-all flex items-center justify-center gap-2"
+                type="submit"
+              >
+                <span class="material-icons text-lg">vpn_key</span>
+                <span>Generate Credentials</span>
+              </button>
+            </form>
+          </div>
+        </section>
+        <section class="col-span-12 lg:col-span-7 xl:col-span-8">
+          <div
+            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 h-full overflow-hidden flex flex-col"
+          >
+            <div
+              class="p-6 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between"
+            >
+              <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white">
+                  Pending Queries
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Recent support requests from students and faculty.
+                </p>
+              </div>
+              <button
+                class="text-primary text-sm font-semibold hover:underline"
+              >
+                View All
+              </button>
+            </div>
+            <div class="flex-1 overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="bg-slate-50 dark:bg-slate-900/50">
+                  <tr>
+                    <th
+                      class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                    >
+                      User
+                    </th>
+                    <th
+                      class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                    >
+                      Role
+                    </th>
+                    <th
+                      class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                    >
+                      Message Snippet
+                    </th>
+                    <th
+                      class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                    >
+                      Received
+                    </th>
+                    <th
+                      class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                  <tr
+                    class="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
+                  >
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300"
+                        >
+                          SC
+                        </div>
+                        <span
+                          class="text-sm font-semibold text-slate-900 dark:text-white"
+                          >Modi Kavy</span
+                        >
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                        >Student</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">
+                      <p
+                        class="text-sm text-slate-500 dark:text-slate-400 max-w-[150px] truncate"
+                      >
+                        "Cannot find my attendance record for..."
+                      </p>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="text-sm text-slate-500 dark:text-slate-400"
+                        >24 mins ago</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <button
+                        class="px-4 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all"
+                      >
+                        Reply
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    class="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
+                  >
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300"
+                        >
+                          RB
+                        </div>
+                        <span
+                          class="text-sm font-semibold text-slate-900 dark:text-white"
+                          >Rahul Gupta</span
+                        >
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                        >Faculty</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">
+                      <p
+                        class="text-sm text-slate-500 dark:text-slate-400 max-w-[150px] truncate"
+                      >
+                        "Geolocation error in Lab 206-A during..."
+                      </p>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="text-sm text-slate-500 dark:text-slate-400"
+                        >1 hour ago</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <button
+                        class="px-4 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all"
+                      >
+                        Reply
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    class="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
+                  >
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300"
+                        >
+                          ED
+                        </div>
+                        <span
+                          class="text-sm font-semibold text-slate-900 dark:text-white"
+                          >Tirth Patel</span
+                        >
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                        >Student</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">
+                      <p
+                        class="text-sm text-slate-500 dark:text-slate-400 max-w-[150px] truncate"
+                      >
+                        "Requesting permission for..."
+                      </p>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="text-sm text-slate-500 dark:text-slate-400"
+                        >2 hours ago</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <button
+                        class="px-4 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all"
+                      >
+                        Reply
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    class="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
+                  >
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300"
+                        >
+                          MC
+                        </div>
+                        <span
+                          class="text-sm font-semibold text-slate-900 dark:text-white"
+                          >Om Patel</span
+                        >
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                        >Student</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">
+                      <p
+                        class="text-sm text-slate-500 dark:text-slate-400 max-w-[150px] truncate"
+                      >
+                        "App crashing on check-in..."
+                      </p>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="text-sm text-slate-500 dark:text-slate-400"
+                        >14 hours ago</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <button
+                        class="px-4 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all"
+                      >
+                        Reply
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section
+        class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+      >
+        <div
+          class="p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 flex items-center gap-3"
+        >
+          <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+          <span class="text-xs font-medium text-slate-600 dark:text-slate-400"
+            >System Uptime: 99.9%</span
+          >
+        </div>
+        <div
+          class="p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 flex items-center gap-3"
+        >
+          <span class="material-icons text-slate-400 text-lg">storage</span>
+          <span class="text-xs font-medium text-slate-600 dark:text-slate-400"
+            >Database Load: 12%</span
+          >
+        </div>
+        <div
+          class="p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 flex items-center gap-3"
+        >
+          <span class="material-icons text-slate-400 text-lg">schedule</span>
+          <span class="text-xs font-medium text-slate-600 dark:text-slate-400"
+            >Last Backup: 2h ago</span
+          >
+        </div>
+        <div
+          class="p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 flex items-center gap-3"
+        >
+          <span class="material-icons text-slate-400 text-lg"
+            >verified_user</span
+          >
+          <span class="text-xs font-medium text-slate-600 dark:text-slate-400"
+            >API Gateway: Secure</span
+          >
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
